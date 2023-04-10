@@ -13,8 +13,9 @@ public class NijnjaGirl_Controller : MonoBehaviour
     const int Anima_Attack = 3;
     const int Anima_Trow = 4;
     const int Anima_Slide = 5;
+    const int Anima_Jump = 6;
 
-    //int aux = 0;
+    int aux = 0;
     bool band = false;
     int i=0;
     // Start is called before the first frame update
@@ -81,18 +82,17 @@ public class NijnjaGirl_Controller : MonoBehaviour
         /////////////////////////////////////////////////
 
         //Space//////////////////////////////////////////
-      //  if ( Input.GetKeyDown(KeyCode.Space) && aux<2 ){
+        if ( Input.GetKeyDown(KeyCode.Space) && aux<2 ){
            
-        //   rb.velocity = new Vector2(rb.velocity.x, 5);
-         //   //rb.AddForce(new Vector2(0,5),ForceMode2D.Impulse);
-         //   aux++;
+           //rb.velocity = new Vector2(rb.velocity.x, 5);
+            rb.AddForce(new Vector2(0,5),ForceMode2D.Impulse);
+            aux++;
            
                  
-      //  }
-      //  if(aux==2){
-          //  ChangeAnimation(Anima_Jump);
-         
-     //   }
+        }
+        if(aux==2){
+            ChangeAnimation(Anima_Jump);
+        }
         /////////////////////////////////////////////////
 
         //Slide//////////////////////////////////////////////
@@ -119,7 +119,7 @@ public class NijnjaGirl_Controller : MonoBehaviour
             if(i!=1){
             rb.velocity = new Vector2(0,rb.velocity.y);
             ChangeAnimation(Anima_Dead);
-            Destroy(gameObject,1);
+            //Destroy(gameObject,1);
             i++;
             }
         }
@@ -130,8 +130,8 @@ public class NijnjaGirl_Controller : MonoBehaviour
         
     }   
     void OnCollisionEnter2D(Collision2D other){
-        //ChangeAnimation(Anima_Jump);
-       // aux=0;
+        ChangeAnimation(Anima_Jump);
+        aux=0;
     }
     private void ChangeAnimation(int animation){     
         animator.SetInteger("Estado",animation);
