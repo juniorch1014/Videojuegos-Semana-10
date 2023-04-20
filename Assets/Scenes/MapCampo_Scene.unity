@@ -6009,6 +6009,10 @@ PrefabInstance:
       propertyPath: Izqu
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 3045338783179326695, guid: d4b1c2dff48fcf24d812c136159dee49, type: 3}
+      propertyPath: jumpForce
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 3045338783179326714, guid: d4b1c2dff48fcf24d812c136159dee49, type: 3}
       propertyPath: m_RootOrder
       value: 1

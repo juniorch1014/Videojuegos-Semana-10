@@ -13,8 +13,9 @@ public class NijnjaGirl_Controller : MonoBehaviour
     Rigidbody2D rb;
     SpriteRenderer sr;
 
-    public float jumpForce =1000f;
-    public int vCorrer = 10;
+    public GameObject kunai;
+    public float jumpForce;
+    public int vCorrer;
     const int Anima_Run   =  1;
     const int Anima_Dead  = 2;
     const int Anima_Attack = 3;
@@ -95,7 +96,7 @@ public class NijnjaGirl_Controller : MonoBehaviour
            
            //rb.velocity = new Vector2(rb.velocity.x, 5);
             if(footController.CanJump()){
-              rb.AddForce(transform.up * 400);
+              rb.AddForce(transform.up * jumpForce);
               footController.Jumps();
              
             } 
@@ -141,6 +142,26 @@ public class NijnjaGirl_Controller : MonoBehaviour
         //ATACK//////////////////////////////////////////////
         if (Input.GetKey(KeyCode.E)){
            ChangeAnimation(Anima_Trow);
+        }
+        if (Input.GetKeyDown(KeyCode.A)){
+            if(sr.flipX == false){
+              var KunaiPosition = transform.position + new Vector3(1,0,0);
+              var gb = Instantiate(kunai, 
+                                   KunaiPosition,
+                                   Quaternion.identity)
+                                   as GameObject;
+              var controller = gb.GetComponent<Kunai_Controller>();
+              controller.SetRightDirection();
+            }
+            if(sr.flipX == true){
+              var KunaiPosition = transform.position + new Vector3(-1,0,0);
+              var gb = Instantiate(kunai, 
+                                   KunaiPosition,
+                                   Quaternion.identity)
+                                   as GameObject;
+              var controller = gb.GetComponent<Kunai_Controller>();
+              controller.SetLeftDirection();
+            }
         }
         /////////////////////////////////////////////////
         }else{

@@ -22,4 +22,10 @@ public class Zombie_Controller2 : MonoBehaviour
         rb.velocity = new Vector2(-1,rb.velocity.y);
         sr.flipX = true;
     }
+    private void OnCollisionEnter2D(Collision2D other) {
+        //if(other.gameObject.tag == "kunai"){
+              
+           // Destroy(this.gameObject);
+       // }
+    }
 }

@@ -310,8 +310,9 @@ MonoBehaviour:
   IzquController: {fileID: 1821261813534007153}
   DereController: {fileID: 3241284704231554289}
   coinSaltoController: {fileID: 0}
-  jumpForce: 1000
-  vCorrer: 10
+  kunai: {fileID: 4583470507289640160, guid: 06aa84d2bd1d0cd4e894a6221caa7a7f, type: 3}
+  jumpForce: 100
+  vCorrer: 5
 --- !u!1 &5883245220480603350
 GameObject:
   m_ObjectHideFlags: 0
