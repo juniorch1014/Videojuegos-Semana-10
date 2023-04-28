@@ -7,6 +7,10 @@ TagManager:
   - Pared
   - Zombie
   - kunai
+  - Coin
+  - suelo
+  - ParedZ
+  - ParedZ2
   layers:
   - Default
   - TransparentFX

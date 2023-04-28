@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class NGirlFootController : MonoBehaviour
 {   
-    public NijnjaGirl_Controller NijnjaGirl_Controller;
+    NijnjaGirl_Controller NijnjaGirl_Controller;
+    GameManagerC gameManager;
     public const int MAX_JUMPS = 1;
     private bool onGround = false;
     public int aux = 0;
    
-
+     void Start() {
+        gameManager = FindObjectOfType<GameManagerC>();
+    }
     public bool CanJump (){
         return onGround || (!onGround && aux < MAX_JUMPS);
     }

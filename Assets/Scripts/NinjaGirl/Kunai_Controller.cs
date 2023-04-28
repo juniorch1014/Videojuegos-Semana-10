@@ -49,7 +49,7 @@ public class Kunai_Controller : MonoBehaviour
             }
             if(sr.flipX == true){
                 
-                var Kunai2PositionAr = transform.position + new Vector3(-1,0,0);
+                var Kunai2PositionAr = transform.position + new Vector3(-1,1,0);
                 var gb = Instantiate(kunai2, 
                                    Kunai2PositionAr,
                                    Quaternion.identity)
@@ -83,5 +83,9 @@ public class Kunai_Controller : MonoBehaviour
         if(other.gameObject.tag == "Zombie"){
             Destroy(this.gameObject);
         }
+        if(other.gameObject.tag == "suelo"){
+            Destroy(this.gameObject);
+        }
+       
     }
 }

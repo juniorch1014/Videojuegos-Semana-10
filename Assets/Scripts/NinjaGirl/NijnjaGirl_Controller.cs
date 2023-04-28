@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class NijnjaGirl_Controller : MonoBehaviour
 {   
+    GameManagerC gameManager;
     public NGirlFootController footController;
     public NGirl_IzqDerController IzquController;
     public NGirl_IzqDerController DereController;
@@ -23,17 +24,26 @@ public class NijnjaGirl_Controller : MonoBehaviour
     const int Anima_Slide = 5;
     const int Anima_Jump = 6;
 
- 
+
+    public AudioClip SaltarClip;
+    public AudioClip deadClip;
+    public AudioClip coinsClip;
+    AudioSource audioSource;
+
+    private int jump_Force = 200;
+
     bool band = false;
     int i=0;
+    int aux = 0;
     // Start is called before the first frame update
     void Start()
     {
         Debug.Log("Ejecutando Start");
+        gameManager = FindObjectOfType<GameManagerC>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
-        
+        audioSource =GetComponent<AudioSource>();
     
         
     }
@@ -92,38 +102,66 @@ public class NijnjaGirl_Controller : MonoBehaviour
         /////////////////////////////////////////////////
         
         //Space//////////////////////////////////////////
-        if (Input.GetKeyDown(KeyCode.Space)){
+        // if (Input.GetKeyDown(KeyCode.Space)){
            
-           //rb.velocity = new Vector2(rb.velocity.x, 5);
-            if(footController.CanJump()){
-              rb.AddForce(transform.up * jumpForce);
-              footController.Jumps();
+        //     audioSource.PlayOneShot(SaltarClip);
+        //     if(footController.CanJump()){
+        //       rb.AddForce(transform.up * jumpForce);
+        //       //rb.velocity = new Vector2(rb.velocity.x, 5);
+        //       //rb.AddForce(new Vector2(0,1),ForceMode2D.Impulse);
+        //       footController.Jumps();
              
-            } 
-            if(IzquController.CanJumpPared()){
-              rb.AddForce(new Vector2(0,5),ForceMode2D.Impulse);
-              IzquController.JumpsPared();
-            }
-            if(DereController.CanJumpPared()){
-              rb.AddForce(new Vector2(0,5),ForceMode2D.Impulse);
-              DereController.JumpsPared();
-            }
+        //     } 
+        //     if(IzquController.CanJumpPared()){
+        //       rb.AddForce(new Vector2(0,5),ForceMode2D.Impulse);
+        //       IzquController.JumpsPared();
+        //     }
+        //     if(DereController.CanJumpPared()){
+        //       rb.AddForce(new Vector2(0,5),ForceMode2D.Impulse);
+        //       DereController.JumpsPared();
+        //     }
             
 
         
-        }
-        if(Input.GetKeyUp(KeyCode.Space) ){
-
-              if(Input.GetKeyDown(KeyCode.M) && coinSaltoController.saltoMoneda==true){
-              Debug.Log("AAAAA");
-              rb.AddForce(transform.up * 200);
-              }
-        }
-        if(footController.aux == 2){
-          ChangeAnimation(Anima_Jump);
-        }
+        // }
+        // /////////////////////////////////////////////////////////////////
+        // if(Input.GetKeyUp(KeyCode.Space) ){
+              
+        //       if(Input.GetKeyDown(KeyCode.M) && coinSaltoController.saltoMoneda==true){
+        //       Debug.Log("AAAAA");
+        //       audioSource.PlayOneShot(SaltarClip);
+        //       rb.AddForce(transform.up * 200);
+        //       }
+        // }
+        // if(footController.aux == 2){
+        //   ChangeAnimation(Anima_Jump);
+        // }
         /////////////////////////////////////////////////
+        /////////////////SPACIOOOOOOOO 22222////////////////
+        //Space
+        if (Input.GetKeyDown(KeyCode.Space) && aux<2){
+           // rb.AddForce(new Vector2(0,jump_Force),ForceMode2D.Impulse);
+            rb.AddForce(transform.up * jump_Force);
+            audioSource.PlayOneShot(SaltarClip);
+            aux++;
 
+
+            // if(IzquController.CanJumpPared()){
+            //  // rb.AddForce(new Vector2(0,jump_Force),ForceMode2D.Impulse);
+            //   rb.AddForce(transform.up * jump_Force);
+            //   IzquController.JumpsPared();
+            // }
+            // if(DereController.CanJumpPared()){
+            // //  rb.AddForce(new Vector2(0,jump_Force),ForceMode2D.Impulse);
+            //   rb.AddForce(transform.up * jump_Force);
+            //   DereController.JumpsPared();
+            // }
+     
+        }
+        if(aux==2){
+            ChangeAnimation(Anima_Jump);
+            
+        } 
         //Slide//////////////////////////////////////////////
         if (Input.GetKey(KeyCode.Q)){
             ChangeAnimation(Anima_Slide);
@@ -144,6 +182,8 @@ public class NijnjaGirl_Controller : MonoBehaviour
            ChangeAnimation(Anima_Trow);
         }
         if (Input.GetKeyDown(KeyCode.A)){
+          if(gameManager.Balas() > 0) {
+            ChangeAnimation(Anima_Attack);
             if(sr.flipX == false){
               var KunaiPosition = transform.position + new Vector3(1,0,0);
               var gb = Instantiate(kunai, 
@@ -162,6 +202,9 @@ public class NijnjaGirl_Controller : MonoBehaviour
               var controller = gb.GetComponent<Kunai_Controller>();
               controller.SetLeftDirection();
             }
+            gameManager.DisminBalas(1);
+          }
+            
         }
         /////////////////////////////////////////////////
         }else{
@@ -177,9 +220,15 @@ public class NijnjaGirl_Controller : MonoBehaviour
         
     }   
 
-    private void OnCollisionEnter2D(Collision2D other) {
-      
+    void OnCollisionEnter2D(Collision2D other) {
+        aux=0;
     }
+    void OnTriggerEnter2D(Collider2D other) {
+      if(other.gameObject.tag == "Coin") {
+        audioSource.PlayOneShot(coinsClip);
+      }
+      
+    } 
     public void ChangeAnimation(int animation){     
         animator.SetInteger("Estado",animation);
     }

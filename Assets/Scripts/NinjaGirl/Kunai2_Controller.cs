@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Kunai2_Controller : MonoBehaviour
 {
+    private float velocity2 = 5;
     float realVelocity2= 5;
-    int direcion2=0;
+    float direcion2=0;
     Rigidbody2D rb;
     SpriteRenderer sr;
     bool band = false;
@@ -27,16 +28,24 @@ public class Kunai2_Controller : MonoBehaviour
 
         sr.flipX = band;
         if(i==1) {
-            rb.velocity = new Vector2(realVelocity2++,direcion2++);
+            realVelocity2 = realVelocity2 + 0.03f;
+            direcion2 = direcion2 + 0.03f;
+            rb.velocity = new Vector2(realVelocity2,direcion2);
         }
         if(i==2) {
-            rb.velocity = new Vector2(realVelocity2++,direcion2--);
+            realVelocity2 = realVelocity2 + 0.03f;
+            direcion2 = direcion2 - 0.03f;
+            rb.velocity = new Vector2(realVelocity2,direcion2);
         }
         if(i==3) {
-            rb.velocity = new Vector2(-realVelocity2++,direcion2++);
+            realVelocity2 = realVelocity2 + 0.03f;
+            direcion2 = direcion2 + 0.03f;
+            rb.velocity = new Vector2(-realVelocity2,direcion2);
         }
         if(i==4) {
-            rb.velocity = new Vector2(-realVelocity2++,direcion2--);
+            realVelocity2 = realVelocity2 + 0.03f;
+            direcion2 = direcion2 - 0.03f;
+            rb.velocity = new Vector2(-realVelocity2,direcion2);
         }
         Destroy(this.gameObject,5);
     }
@@ -63,7 +72,11 @@ public class Kunai2_Controller : MonoBehaviour
         
     }
     private void OnCollisionEnter2D(Collision2D other) {
+        Destroy(this.gameObject);
         if(other.gameObject.tag == "Zombie"){
+            Destroy(this.gameObject);
+        }
+        if(other.gameObject.tag == "suelo"){
             Destroy(this.gameObject);
         }
     }
