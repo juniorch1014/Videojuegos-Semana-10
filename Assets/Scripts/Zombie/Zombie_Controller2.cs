@@ -7,7 +7,7 @@ public class Zombie_Controller2 : MonoBehaviour
     GameManagerC gameManager;
     Rigidbody2D rb;
     SpriteRenderer sr;
-
+    NijnjaGirl_Controller ninja;
     public GameObject paredZ;
     public GameObject paredZ2;
 
@@ -24,6 +24,7 @@ public class Zombie_Controller2 : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         gameManager = FindObjectOfType<GameManagerC>();
+        ninja = FindObjectOfType<NijnjaGirl_Controller>();
         GenerarParedes();
     }
 
@@ -53,6 +54,10 @@ public class Zombie_Controller2 : MonoBehaviour
             if(other.gameObject.tag == "kunai"){
              Destroy(this.gameObject);
              gameManager.GanarZPunt(1);
+             if(gameManager.Zomb()==3) {
+                ninja.puntos = true;
+                Debug.Log("Llave: " + ninja.puntos);
+             }
             }
         }else{
             aux--;

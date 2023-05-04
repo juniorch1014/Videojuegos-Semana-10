@@ -7,8 +7,8 @@ using TMPro;
 public class GameManagerC : MonoBehaviour
 {
     // Start is called before the first frame update
-    public TMP_Text scoreZombie;
-    public TMP_Text scoreBalas;
+    public TMP_Text scorePuntos;
+    public TMP_Text scoreLlave;
     public TMP_Text scoreVida;
 
     private int zomb;
@@ -18,7 +18,7 @@ public class GameManagerC : MonoBehaviour
     void Start()
     {
         zomb = 0;
-        bala = 5;
+        bala = 0;
         vida = 2;
         PrintZomb_InScreen();
         PrintBalas_InScreen1();
@@ -53,11 +53,11 @@ public class GameManagerC : MonoBehaviour
     }
 ///////////////////////////////////////////////////////////
     private void PrintZomb_InScreen() {
-        scoreZombie.text = "Zombie: "+ zomb;
+        scorePuntos.text = "Puntos: "+ zomb;
         Debug.Log("Gpunto: " + zomb);
     }
     private void PrintBalas_InScreen1() {
-        scoreBalas.text = "Balas: "+ bala;
+        scoreLlave.text = "Llave: "+ bala;
         Debug.Log("Gcoins: " + bala);
     }
     private void PrintVida_InScreen2() {

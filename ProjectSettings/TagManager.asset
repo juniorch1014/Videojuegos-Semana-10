@@ -11,6 +11,8 @@ TagManager:
   - suelo
   - ParedZ
   - ParedZ2
+  - llave
+  - puerta
   layers:
   - Default
   - TransparentFX

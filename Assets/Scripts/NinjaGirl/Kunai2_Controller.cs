@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Kunai2_Controller : MonoBehaviour
 {
-    private float velocity2 = 5;
+   // private float velocity2 = 5;
     float realVelocity2= 5;
     float direcion2=0;
     Rigidbody2D rb;
