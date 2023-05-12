@@ -4,20 +4,22 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+using UnityEngine.SceneManagement;
+
 public class GameManagerC : MonoBehaviour
 {
     // Start is called before the first frame update
     public TMP_Text scorePuntos;
     public TMP_Text scoreLlave;
     public TMP_Text scoreVida;
-
+    
     private int zomb;
     private int bala;
     private int vida;
 
     void Start()
     {
-        zomb = 0;
+ 
         bala = 0;
         vida = 2;
         PrintZomb_InScreen();
@@ -64,6 +66,11 @@ public class GameManagerC : MonoBehaviour
         scoreVida.text = "Vidas: "+ vida;
         Debug.Log("Gvidas: " + vida);
     }
+
+    public void salir () {
+            SceneManager.LoadScene(5);
+    }
+
 ///////////////////////////////////////////////////////////
     // Update is called once per frame
     // void Update()

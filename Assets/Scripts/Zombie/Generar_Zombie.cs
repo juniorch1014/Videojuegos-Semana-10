@@ -23,7 +23,7 @@ public class Generar_Zombie : MonoBehaviour
        // }
         Debug.Log("Time" + Time.time);
         aux = (int)(Time.time);
-        if((aux%5)==0){
+        if((aux%2)==0){
 
             if(band==false) {
                 Debug.Log("Tiempo de Generacion" + aux);

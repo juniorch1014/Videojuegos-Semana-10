@@ -14,4 +14,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MapNieve_Scene.unity
     guid: fef36df39fe84e343b4089cd166502ea
+  - enabled: 1
+    path: Assets/Scenes/ScenesPlayers/Init_Scena1.unity
+    guid: ea4041314230181409abc74e1137545e
+  - enabled: 1
+    path: Assets/Scenes/ScenesPlayers/Init_Scena2.unity
+    guid: 89ae14e3e11f9bb4fa775f3662934c40
+  - enabled: 1
+    path: Assets/Scenes/ScenesPlayers/Inicio.unity
+    guid: 7cc0316f4691578438a8a9cfb80f04cd
   m_configObjects: {}

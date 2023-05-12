@@ -288,7 +288,7 @@ public class NijnjaGirl_Controller : MonoBehaviour
       if(other.gameObject.name == "Casa") {
         SceneManager.LoadScene(2);
       }
-        if(other.gameObject.name == "Regresar") {
+      if(other.gameObject.name == "Regresar") {
         SceneManager.LoadScene(1);
       }
       if(other.gameObject.tag == "llave") {
