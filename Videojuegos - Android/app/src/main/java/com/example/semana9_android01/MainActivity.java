@@ -1,0 +1,92 @@
+package com.example.semana9_android01;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.webkit.WebView;
+import android.widget.Button;
+import android.widget.TextClock;
+import android.widget.TextView;
+
+import java.util.Random;
+
+public class MainActivity extends AppCompatActivity {
+
+
+    Button BottonJugador;
+    Button BReset;
+
+    TextView NroJugador1;
+    TextView NroJugador2;
+    TextView Resultado;
+
+    int a;
+    int b;
+
+    int aux = 0;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+    BottonJugador = findViewById(R.id.BottonJugador);
+    BReset = findViewById(R.id.BReset);
+
+    NroJugador1 = findViewById(R.id.NroJugador1);
+    NroJugador2 = findViewById(R.id.NroJugador2);
+    Resultado = findViewById(R.id.Resultado);
+
+
+    BottonJugador.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (aux == 0){
+                BottonJugador.setText("Jugador 2");
+                a = generarAleatorio(1,10);
+                NroJugador1.setText(String.valueOf(a));
+            }
+            if (aux == 1){
+                //BottonJugador.setText("Jugador 2");
+                b = generarAleatorio(1,10);
+                NroJugador2.setText(String.valueOf(b));
+            }
+            aux++;
+            if (aux > 1) {
+                if(a<b){
+                    Resultado.setText("JUGADOR 2");
+                }
+                if (a>b) {
+                    Resultado.setText("JUGADOR 1");
+                }
+                if (a==b){
+                    Resultado.setText("EMPATE");
+                }
+            }
+
+        }
+    });
+
+    BReset.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            BottonJugador.setText("Jugador 1");
+            aux = 0;
+            NroJugador1.setText("");
+            NroJugador2.setText("");
+            Resultado.setText("");
+        }
+    });
+
+    }
+
+    private int generarAleatorio(int min, int max) {
+        // Crear una instancia de la clase Random
+        Random random = new Random();
+
+        // Generar el número aleatorio dentro del rango especificado
+        return random.nextInt(max - min + 1) + min;
+    }
+}
