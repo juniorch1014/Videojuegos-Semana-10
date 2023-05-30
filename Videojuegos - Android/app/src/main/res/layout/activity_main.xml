@@ -10,12 +10,10 @@
         android:id="@+id/BottonJugador"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="165dp"
+        android:layout_marginStart="148dp"
         android:layout_marginTop="100dp"
-        android:layout_marginEnd="155dp"
+        android:backgroundTint="#E35454"
         android:text="Jugador 1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.727"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -75,8 +73,19 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="160dp"
         android:layout_marginTop="96dp"
+        android:backgroundTint="#FF5B5B"
         android:text="RESET"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Resultado" />
+
+    <Button
+        android:id="@+id/listas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="160dp"
+        android:layout_marginTop="72dp"
+        android:text="LISTA"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/BReset" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

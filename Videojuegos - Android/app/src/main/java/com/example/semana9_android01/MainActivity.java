@@ -2,6 +2,7 @@ package com.example.semana9_android01;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
@@ -16,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button BottonJugador;
     Button BReset;
+    Button BList;
 
     TextView NroJugador1;
     TextView NroJugador2;
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     BottonJugador = findViewById(R.id.BottonJugador);
     BReset = findViewById(R.id.BReset);
+    BList = findViewById(R.id.listas);
 
     NroJugador1 = findViewById(R.id.NroJugador1);
     NroJugador2 = findViewById(R.id.NroJugador2);
@@ -80,6 +83,13 @@ public class MainActivity extends AppCompatActivity {
         }
     });
 
+    BList.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(getApplicationContext(), ListaAnimeActivity.class);
+            startActivity(intent);
+        }
+    });
     }
 
     private int generarAleatorio(int min, int max) {
