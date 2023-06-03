@@ -17,6 +17,21 @@
         android:theme="@style/Theme.Semana9_Android01"
         tools:targetApi="31">
         <activity
+            android:name=".zPokemon.PokemonDetallesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ListaActivity$PokemonDetallesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".zPokemon.ListaPokemon"
+            android:exported="false" />
+        <activity
+            android:name=".zPokemon.PokemonResgistrarActivity"
+            android:exported="false" />
+        <activity
+            android:name=".zPokemon.PokemonMainActivity"
+            android:exported="false" />
+        <activity
             android:name=".ListaAnimeActivity"
             android:exported="false" />
         <activity
