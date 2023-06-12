@@ -2,9 +2,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
+
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
 
     <application
         android:allowBackup="true"
@@ -17,19 +27,16 @@
         android:theme="@style/Theme.Semana9_Android01"
         tools:targetApi="31">
         <activity
-            android:name=".zPokemon.PokemonDetallesActivity"
+            android:name=".zPokemon.PublicacionDetallesActivity"
             android:exported="false" />
         <activity
-            android:name=".ListaActivity$PokemonDetallesActivity"
+            android:name=".zPokemon.ListaPublicacion"
             android:exported="false" />
         <activity
-            android:name=".zPokemon.ListaPokemon"
+            android:name=".zPokemon.PublicacionResgistrarActivity"
             android:exported="false" />
         <activity
-            android:name=".zPokemon.PokemonResgistrarActivity"
-            android:exported="false" />
-        <activity
-            android:name=".zPokemon.PokemonMainActivity"
+            android:name=".zPokemon.PublicacionMainActivity"
             android:exported="false" />
         <activity
             android:name=".ListaAnimeActivity"

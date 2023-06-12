@@ -1,6 +1,7 @@
 package com.example.semana9_android01.zPokemon;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,12 +12,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.semana9_android01.R;
-import com.example.semana9_android01.adapters.PokemonAdapter;
-import com.example.semana9_android01.entities.Idguarda;
-import com.example.semana9_android01.entities.Pokemon;
-import com.example.semana9_android01.services.PokemonService;
+import com.example.semana9_android01.adapters.ComentarioAdapter;
+import com.example.semana9_android01.entities.Comentario;
+import com.example.semana9_android01.entities.Publicacion;
+import com.example.semana9_android01.services.ComentarioService;
+import com.example.semana9_android01.services.PublicacionService;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,13 +28,13 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class PokemonDetallesActivity extends AppCompatActivity {
+public class PublicacionDetallesActivity extends AppCompatActivity {
 
     ImageView imagenP;
-    TextView tvNumero;
+    TextView nroPublicDescrip;
     TextView tvNombre;
     TextView tvTipo;
-
+    RecyclerView rvComentarios;
     Button btEliminarP;
 
 
@@ -39,13 +43,12 @@ public class PokemonDetallesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pokemon_detalles);
+        setContentView(R.layout.activity_publicacion_detalles);
 
         imagenP  = findViewById(R.id.imagenP);
-        tvNumero = findViewById(R.id.nroPokemon);
-        tvNombre = findViewById(R.id.nombrePokemon);
-        tvTipo   = findViewById(R.id.tipoPokemon);
+        nroPublicDescrip = findViewById(R.id.nroPublicDescrip);
         btEliminarP = findViewById(R.id.btEliminar);
+        rvComentarios = findViewById(R.id.rvComentarios);
 
 
 
@@ -58,27 +61,45 @@ public class PokemonDetallesActivity extends AppCompatActivity {
                 .baseUrl("https://64787960362560649a2dda13.mockapi.io/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        PokemonService service = retrofit.create(PokemonService.class);
+        PublicacionService service = retrofit.create(PublicacionService.class);
 
-        Call<Pokemon> call = service.findUser(idObtener);
-        call.enqueue(new Callback<Pokemon>() {
+        Call<Publicacion> call = service.findUser(idObtener);
+        call.enqueue(new Callback<Publicacion>() {
             @Override
-            public void onResponse(Call<Pokemon> call, Response<Pokemon> response) {
+            public void onResponse(Call<Publicacion> call, Response<Publicacion> response) {
                 if (response.isSuccessful()) {
-                    Pokemon data = response.body();
+                    Publicacion data = response.body();
 
                     Picasso.get().load(data.urlimagen).into(imagenP);
-                    tvNumero.setText(data.numero);
-                    tvNombre.setText(data.nombre);
-                    tvTipo.setText(data.tipo);
-
+                    nroPublicDescrip.setText(data.descripcion);
                     Log.i("MAIN_APP", new Gson().toJson(data));
 
                 }
             }
 
             @Override
-            public void onFailure(Call<Pokemon> call, Throwable t) {
+            public void onFailure(Call<Publicacion> call, Throwable t) {
+
+            }
+        });
+        ComentarioService serviceC = retrofit.create(ComentarioService.class);
+        Call<List<Comentario>> callC = serviceC.getAllUser();
+        callC.enqueue(new Callback<List<Comentario>>() {
+            @Override
+            public void onResponse(Call<List<Comentario>> call, Response<List<Comentario>> response) {
+                if (response.isSuccessful()) {
+                    List<Comentario> dataC = response.body();
+
+                    Log.i("MAIN_APP",String.valueOf(dataC.size()));
+                    Log.i("MAIN_APP", new Gson().toJson(dataC));
+
+                    ComentarioAdapter adapter = new ComentarioAdapter(dataC);
+                    rvComentarios.setAdapter(adapter);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Comentario>> call, Throwable t) {
 
             }
         });
@@ -91,7 +112,7 @@ public class PokemonDetallesActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
                         if(response.isSuccessful()) {
-                            Intent intent = new Intent(getApplicationContext(), ListaPokemon.class);
+                            Intent intent = new Intent(getApplicationContext(), ListaPublicacion.class);
                             startActivity(intent);
                         }
                     }

@@ -5,7 +5,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -68,8 +71,9 @@ public class NameAdapter extends RecyclerView.Adapter {
             public void onClick(View v) {
                String telephone =item.getTelefono();
                String message = item.getLinkImagen();
-               //dialPhoneNumber(telephone, v.getContext());
-                sendTextMessage(telephone,message,v.getContext());
+               dialPhoneNumber(telephone, v.getContext());
+                //sendTextMessage(telephone,message,v.getContext());
+                //takePhoto(v.getContext(), imagenPersona);
 
             }
         });
@@ -107,9 +111,24 @@ public class NameAdapter extends RecyclerView.Adapter {
         }
         context.startActivity(intent);
 
-
-
     }
+
+    private static final int REQUEST_CAMERA = 1;
+    private static final int REQUEST_IMAGE_CAPTURE = 2;
+//    private void takePhoto(Context context, ImageView photoTomada) {
+//        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+//            ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA);
+//        } else {
+//            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//            if (intent.resolveActivity(context.getPackageManager()) != null) {
+//                ((Activity) context).startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+//            } else {
+//                Toast.makeText(context, "No se pudo abrir la cámara", Toast.LENGTH_SHORT).show();
+//            }
+//        }
+//    }
+
+
 
 
 }

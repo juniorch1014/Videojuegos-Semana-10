@@ -8,11 +8,9 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.example.semana9_android01.R;
-import com.example.semana9_android01.adapters.AnimeAdapter;
-import com.example.semana9_android01.adapters.PokemonAdapter;
-import com.example.semana9_android01.entities.Persona;
-import com.example.semana9_android01.entities.Pokemon;
-import com.example.semana9_android01.services.PokemonService;
+import com.example.semana9_android01.adapters.PublicacionAdapter;
+import com.example.semana9_android01.entities.Publicacion;
+import com.example.semana9_android01.services.PublicacionService;
 import com.google.gson.Gson;
 
 import java.util.List;
@@ -23,12 +21,12 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ListaPokemon extends AppCompatActivity {
+public class ListaPublicacion extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lista_pokemon);
+        setContentView(R.layout.activity_lista_publicacion);
 
         Log.d("APP_MAIN", "ListasaaaasssAnimeeeeee");
 
@@ -41,29 +39,29 @@ public class ListaPokemon extends AppCompatActivity {
                 .baseUrl("https://64787960362560649a2dda13.mockapi.io/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        PokemonService service = retrofit.create(PokemonService.class);
-        Call<List<Pokemon>> call = service.getAllUser();
+        PublicacionService service = retrofit.create(PublicacionService.class);
+        Call<List<Publicacion>> call = service.getAllUser();
 
 
-        call.enqueue(new Callback<List<Pokemon>>() {
+        call.enqueue(new Callback<List<Publicacion>>() {
             @Override
-            public void onResponse(Call<List<Pokemon>> call, Response<List<Pokemon>> response) {
+            public void onResponse(Call<List<Publicacion>> call, Response<List<Publicacion>> response) {
 
                 Log.i("MAIN_APP",String.valueOf(response.code()));
 
                 if (response.isSuccessful()) {
-                    List<Pokemon> data = response.body();
+                    List<Publicacion> data = response.body();
 
                     Log.i("MAIN_APP",String.valueOf(data.size()));
                     Log.i("MAIN_APP", new Gson().toJson(data));
 
-                    PokemonAdapter adapter = new PokemonAdapter(data);
+                    PublicacionAdapter adapter = new PublicacionAdapter(data);
                     rvListaU.setAdapter(adapter);
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Pokemon>> call, Throwable t) {
+            public void onFailure(Call<List<Publicacion>> call, Throwable t) {
 
             }
         });

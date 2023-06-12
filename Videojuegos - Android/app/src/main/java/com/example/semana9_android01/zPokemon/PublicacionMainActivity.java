@@ -9,7 +9,7 @@ import android.widget.Button;
 
 import com.example.semana9_android01.R;
 
-public class PokemonMainActivity extends AppCompatActivity {
+public class PublicacionMainActivity extends AppCompatActivity {
 
     Button btMisPokemones;
     Button btRegistrarPokemones;
@@ -17,22 +17,22 @@ public class PokemonMainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pokemon_main);
+        setContentView(R.layout.activity_publicacion_main);
 
-        btMisPokemones = findViewById(R.id.btMisPokemones);
-        btRegistrarPokemones = findViewById(R.id.btRegistrarPokemones);
+        btMisPokemones = findViewById(R.id.btMisPublicacion);
+        btRegistrarPokemones = findViewById(R.id.btRegistrarPublicacion);
 
         btMisPokemones.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ListaPokemon.class);
+                Intent intent = new Intent(getApplicationContext(), ListaPublicacion.class);
                 startActivity(intent);
             }
         });
         btRegistrarPokemones.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), PokemonResgistrarActivity.class);
+                Intent intent = new Intent(getApplicationContext(), PublicacionResgistrarActivity.class);
                 startActivity(intent);
             }
         });

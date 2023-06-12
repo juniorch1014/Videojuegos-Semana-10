@@ -14,18 +14,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.semana9_android01.R;
-import com.example.semana9_android01.entities.Idguarda;
-import com.example.semana9_android01.entities.Pokemon;
-import com.example.semana9_android01.zPokemon.PokemonDetallesActivity;
+import com.example.semana9_android01.entities.Publicacion;
+import com.example.semana9_android01.zPokemon.PublicacionDetallesActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class PokemonAdapter  extends RecyclerView.Adapter {
-    private List<Pokemon> items;
+public class PublicacionAdapter extends RecyclerView.Adapter {
+    private List<Publicacion> items;
 
 
-    public PokemonAdapter(List<Pokemon> items){
+    public PublicacionAdapter(List<Publicacion> items){
         this.items = items;
     }
     @NonNull
@@ -33,7 +32,7 @@ public class PokemonAdapter  extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.item_pokemon, parent, false);
+        View view = inflater.inflate(R.layout.item_publicacion, parent, false);
         NameViewHolder viewHolder = new NameViewHolder(view);
 
         return viewHolder;
@@ -41,39 +40,39 @@ public class PokemonAdapter  extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        Pokemon item = items.get(position);
+        Publicacion item = items.get(position);
         View view = holder.itemView;
 
-        TextView tvnumero = view.findViewById(R.id.tvNumeroPokemon);
-        TextView tvnombre = view.findViewById(R.id.tvNombrePokemon);
-        TextView tvetipo = view.findViewById(R.id.tvTipoPokemon);
+
+        TextView tvDescripcionPubli = view.findViewById(R.id.tvDescripcionPublicacion);
+
         ImageView imagenPokemon= view.findViewById(R.id.ImagenPokemon);
 
         //ImageView estrella = view.findViewById(R.id.Estrella);
 
-        tvnumero.setText(item.numero);
-        tvnombre.setText(item.nombre);
-        tvetipo.setText(item.tipo);
+
+        tvDescripcionPubli.setText(item.descripcion);
+
 
 
         Picasso.get().load(item.urlimagen).into(imagenPokemon);
 
-        Button btDetalles = view.findViewById(R.id.btDetalles);
+        Button btComentarios = view.findViewById(R.id.btDetalles);
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), PokemonDetallesActivity.class);
+                Intent intent = new Intent(v.getContext(), PublicacionDetallesActivity.class);
                 intent.putExtra("id", item.id);
                 v.getContext().startActivity(intent);
                 Log.d("APP_MAIN1", String.valueOf(item.id));
             }
         });
 
-        btDetalles.setOnClickListener(new View.OnClickListener() {
+        btComentarios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), PokemonDetallesActivity.class);
+                Intent intent = new Intent(v.getContext(), PublicacionDetallesActivity.class);
                 intent.putExtra("id", item.id);
                 v.getContext().startActivity(intent);
                 Log.d("APP_MAIN2", String.valueOf(item.id));

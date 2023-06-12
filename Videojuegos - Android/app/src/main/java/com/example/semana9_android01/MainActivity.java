@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.semana9_android01.zPokemon.PokemonMainActivity;
+import com.example.semana9_android01.zPokemon.PublicacionMainActivity;
 
 import java.util.Random;
 
@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
     BPokemon.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(getApplicationContext(), PokemonMainActivity.class);
+            Intent intent = new Intent(getApplicationContext(), PublicacionMainActivity.class);
             startActivity(intent);
         }
     });

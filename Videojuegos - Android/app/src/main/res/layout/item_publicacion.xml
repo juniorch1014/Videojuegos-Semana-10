@@ -19,24 +19,19 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tvNumeroPokemon"
-            android:layout_width="112dp"
+            android:id="@+id/Descripcion"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="Nombre Anime" />
+            android:hint="Nombre Anime"
+            android:text="Descripcion:"
+            android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tvNombrePokemon"
+            android:id="@+id/tvDescripcionPublicacion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:hint="Descripcion" />
-
-        <TextView
-            android:id="@+id/tvTipoPokemon"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
 
     </LinearLayout>
 
