@@ -1,6 +1,6 @@
 package com.example.semana9_android01.services;
 
-import com.example.semana9_android01.entities.Publicacion;
+import com.example.semana9_android01.entities.Paisajes;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -13,19 +13,19 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
-public interface PublicacionService {
+public interface PaisajeService {
     @GET("publicacion")
-    Call<List<Publicacion>> getAllUser();
+    Call<List<Paisajes>> getAllUser();
 
     @GET("publicacion/{id}")
-    Call<Publicacion> findUser(@Path("id") int id);
+    Call<Paisajes> findUser(@Path("id") int id);
 
     // users
     @POST("publicacion")
-    Call<Publicacion> create(@Body Publicacion user);
+    Call<Paisajes> create(@Body Paisajes user);
 
     @PUT("publicacion/{id}")
-    Call<Publicacion> update(@Path("id") int id, @Body Publicacion user);
+    Call<Paisajes> update(@Path("id") int id, @Body Paisajes user);
 
     @DELETE("publicacion/{id}")
     Call<Void> delete(@Path("id") int id);

@@ -1,4 +1,4 @@
-package com.example.semana9_android01.zPokemon;
+package com.example.semana9_android01.zPublicacion;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,9 +22,11 @@ import android.Manifest;
 import android.widget.Toast;
 
 import com.example.semana9_android01.R;
-import com.example.semana9_android01.entities.Publicacion;
+import com.example.semana9_android01.entities.LocationData;
+import com.example.semana9_android01.entities.Paisajes;
 
-import com.example.semana9_android01.services.PublicacionService;
+import com.example.semana9_android01.mapasController.MapsActivity;
+import com.example.semana9_android01.services.PaisajeService;
 import com.google.gson.Gson;
 
 import java.io.ByteArrayOutputStream;
@@ -35,14 +37,17 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class PublicacionResgistrarActivity extends AppCompatActivity {
+public class PaisajeResgistrarActivity extends AppCompatActivity {
     ImageView ivPhoto;
-    EditText etPublicacion;
+    EditText etPaisaje;
     EditText etTIpo;
+    EditText etLatitud;
+    EditText etLongitud;
     Button btCamara;
     Button btGaleria;
     Button btRegistar;
 
+    Button btGPS;
     String urlImage = "";
     private static final int OPEN_CAMERA_REQUEST = 1001;
     private static final int OPEN_GALLERY_REQUEST = 1002;
@@ -52,51 +57,60 @@ public class PublicacionResgistrarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_publicacion_resgistrar);
 
-         ivPhoto = findViewById(R.id.ivPhoto);
-         etPublicacion = findViewById(R.id.etPublicacionR);
+         ivPhoto       = findViewById(R.id.ivPhoto);
+         etPaisaje = findViewById(R.id.etPublicacionR);
+         btCamara      = findViewById(R.id.btCamara);
+         btRegistar    = findViewById(R.id.btRegistrarP);
 
-         btCamara = findViewById(R.id.btCamara);
-         btGaleria = findViewById(R.id.btGaleria);
-         btRegistar = findViewById(R.id.btRegistrarP);
 
          Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://64787960362560649a2dda13.mockapi.io/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        PublicacionService service = retrofit.create(PublicacionService.class);
+        PaisajeService service = retrofit.create(PaisajeService.class);
+
+        Intent intent =  new Intent(getApplicationContext(), MapsActivity.class);
+        startActivity(intent);
 
         btRegistar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                double Latitud = LocationData.getInstance().getLatitude();
+                double Longitud = LocationData.getInstance().getLongitude();
+                Log.d("APP_MAIN3-Lat", String.valueOf(Latitud));
+                Log.d("APP_MAIN3-Long", String.valueOf(Longitud));
+
                 // int num = Integer.parseInt(etNumero.getText().toString());
-                Publicacion publicacion = new Publicacion();
+                Paisajes paisajes = new Paisajes();
                 // pokemon.numero = etNumero.getText().toString();
-                publicacion.descripcion = etPublicacion.getText().toString();
-                publicacion.urlimagen = String.valueOf("https://demo-upn.bit2bittest.com/"+urlImage);
+                paisajes.nombrePasaje = etPaisaje.getText().toString();
+                paisajes.latitud     = String.valueOf(Latitud);
+                paisajes.longitud    = String.valueOf(Longitud);
+                paisajes.urlimagen = String.valueOf("https://demo-upn.bit2bittest.com/"+urlImage);
 
 
                 //String urlimagen = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/"+ etNumero.getText().toString() + ".png";
                 //pokemon.urlimagen = urlimagen;
 
-                Call<Publicacion> call = service.create(publicacion);
-                call.enqueue(new Callback<Publicacion>() {
+                Call<Paisajes> call = service.create(paisajes);
+                call.enqueue(new Callback<Paisajes>() {
                     @Override
-                    public void onResponse(Call<Publicacion> call, Response<Publicacion> response) {
+                    public void onResponse(Call<Paisajes> call, Response<Paisajes> response) {
                         Log.i("MAIN_APP",String.valueOf(response.code()));
                         if (response.isSuccessful()) {
-                            Publicacion data = response.body();
+                            Paisajes data = response.body();
                             Log.i("MAIN_APP", new Gson().toJson(data));
 
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<Publicacion> call, Throwable t) {
+                    public void onFailure(Call<Paisajes> call, Throwable t) {
 
                     }
                 });
-                Intent intent = new Intent(getApplicationContext(), PublicacionMainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), PaisajeMainActivity.class);
                 startActivity(intent);
             }
         });
@@ -107,22 +121,6 @@ public class PublicacionResgistrarActivity extends AppCompatActivity {
                 handleOpenCamera();
             }
         });
-        btGaleria.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                    openGallery();
-                }
-                else {
-                    String[] permissions = new String[] {Manifest.permission.READ_EXTERNAL_STORAGE};
-                    requestPermissions(permissions, 2000);
-                }
-            }
-        });
-
-
-
-
 
 
     }
@@ -201,13 +199,13 @@ public class PublicacionResgistrarActivity extends AppCompatActivity {
                 .baseUrl("https://demo-upn.bit2bittest.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        PublicacionService service = retrofit1.create(PublicacionService.class);
-        Call<PublicacionService.ImagenResponse> call = service.guardarImage(new PublicacionService.ImagenToSave(base64));
-        call.enqueue(new Callback<PublicacionService.ImagenResponse>() {
+        PaisajeService service = retrofit1.create(PaisajeService.class);
+        Call<PaisajeService.ImagenResponse> call = service.guardarImage(new PaisajeService.ImagenToSave(base64));
+        call.enqueue(new Callback<PaisajeService.ImagenResponse>() {
             @Override
-            public void onResponse(Call<PublicacionService.ImagenResponse> call, Response<PublicacionService.ImagenResponse> response) {
+            public void onResponse(Call<PaisajeService.ImagenResponse> call, Response<PaisajeService.ImagenResponse> response) {
                 if (response.isSuccessful()) {
-                    PublicacionService.ImagenResponse imageResponse = response.body();
+                    PaisajeService.ImagenResponse imageResponse = response.body();
                     Log.i("Respues", response.toString());
                     urlImage = imageResponse.getUrl();
                     Toast.makeText(getBaseContext(), "Link GENERADO", Toast.LENGTH_SHORT).show();
@@ -220,7 +218,7 @@ public class PublicacionResgistrarActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<PublicacionService.ImagenResponse> call, Throwable t) {
+            public void onFailure(Call<PaisajeService.ImagenResponse> call, Throwable t) {
 
             }
         });

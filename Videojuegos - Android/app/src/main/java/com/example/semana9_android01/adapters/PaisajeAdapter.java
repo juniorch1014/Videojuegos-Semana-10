@@ -14,17 +14,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.semana9_android01.R;
-import com.example.semana9_android01.entities.Publicacion;
-import com.example.semana9_android01.zPokemon.PublicacionDetallesActivity;
+import com.example.semana9_android01.entities.Paisajes;
+import com.example.semana9_android01.zPublicacion.PaisajesDetallesActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class PublicacionAdapter extends RecyclerView.Adapter {
-    private List<Publicacion> items;
+public class PaisajeAdapter extends RecyclerView.Adapter {
+    private List<Paisajes> items;
 
 
-    public PublicacionAdapter(List<Publicacion> items){
+    public PaisajeAdapter(List<Paisajes> items){
         this.items = items;
     }
     @NonNull
@@ -32,7 +32,7 @@ public class PublicacionAdapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.item_publicacion, parent, false);
+        View view = inflater.inflate(R.layout.item_paisaje, parent, false);
         NameViewHolder viewHolder = new NameViewHolder(view);
 
         return viewHolder;
@@ -40,18 +40,23 @@ public class PublicacionAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        Publicacion item = items.get(position);
+        Paisajes item = items.get(position);
         View view = holder.itemView;
 
 
         TextView tvDescripcionPubli = view.findViewById(R.id.tvDescripcionPublicacion);
+        TextView tvLatitudPubli       = view.findViewById(R.id.tvLatitudPubli);
+        TextView tvLongitudPubli     = view.findViewById(R.id.tvLongitudPubli);
 
         ImageView imagenPokemon= view.findViewById(R.id.ImagenPokemon);
 
         //ImageView estrella = view.findViewById(R.id.Estrella);
 
 
-        tvDescripcionPubli.setText(item.descripcion);
+        tvDescripcionPubli.setText(item.nombrePasaje);
+        tvLatitudPubli.setText(item.latitud);
+        tvLongitudPubli.setText(item.longitud);
+
 
 
 
@@ -62,7 +67,7 @@ public class PublicacionAdapter extends RecyclerView.Adapter {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), PublicacionDetallesActivity.class);
+                Intent intent = new Intent(v.getContext(), PaisajesDetallesActivity.class);
                 intent.putExtra("id", item.id);
                 v.getContext().startActivity(intent);
                 Log.d("APP_MAIN1", String.valueOf(item.id));
@@ -72,7 +77,7 @@ public class PublicacionAdapter extends RecyclerView.Adapter {
         btComentarios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), PublicacionDetallesActivity.class);
+                Intent intent = new Intent(v.getContext(), PaisajesDetallesActivity.class);
                 intent.putExtra("id", item.id);
                 v.getContext().startActivity(intent);
                 Log.d("APP_MAIN2", String.valueOf(item.id));

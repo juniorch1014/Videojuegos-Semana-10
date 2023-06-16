@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".zPokemon.PublicacionMainActivity">
+    tools:context=".zPublicacion.PaisajeMainActivity">
 
     <TextView
         android:id="@+id/textView3"
@@ -19,22 +19,22 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btMisPublicacion"
+        android:id="@+id/btMisPaisajes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="120dp"
-        android:layout_marginTop="92dp"
-        android:text="Mis Publicaciones"
+        android:layout_marginStart="148dp"
+        android:layout_marginTop="104dp"
+        android:text="Mis Paisajes"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <Button
-        android:id="@+id/btRegistrarPublicacion"
+        android:id="@+id/btRegistrarPaisaje"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="104dp"
-        android:layout_marginTop="100dp"
-        android:text="Registrar Publicaciones"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="112dp"
+        android:text="Registrar Paisaje"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btMisPublicacion" />
+        app:layout_constraintTop_toBottomOf="@+id/btMisPaisajes" />
 </androidx.constraintlayout.widget.ConstraintLayout>

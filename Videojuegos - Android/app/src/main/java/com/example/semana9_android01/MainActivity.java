@@ -8,7 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.semana9_android01.zPokemon.PublicacionMainActivity;
+import com.example.semana9_android01.mapasController.MapsActivity;
+import com.example.semana9_android01.zPublicacion.PaisajeMainActivity;
 
 import java.util.Random;
 
@@ -20,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
     Button BList;
     Button BAnime;
     Button BPokemon;
+    Button BMapas;
+
 
     TextView NroJugador1;
     TextView NroJugador2;
@@ -38,14 +41,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
     BottonJugador = findViewById(R.id.BottonJugador);
-    BReset = findViewById(R.id.BReset);
-    BList = findViewById(R.id.btLista);
-    BAnime = findViewById(R.id.btAnime);
+    BReset   = findViewById(R.id.BReset);
+    BList    = findViewById(R.id.btLista);
+    BAnime   = findViewById(R.id.btAnime);
     BPokemon = findViewById(R.id.btPokemon);
+    BMapas   = findViewById(R.id.btMapas);
 
     NroJugador1 = findViewById(R.id.NroJugador1);
     NroJugador2 = findViewById(R.id.NroJugador2);
-    Resultado = findViewById(R.id.Resultado);
+    Resultado   = findViewById(R.id.Resultado);
+
 
 
     BottonJugador.setOnClickListener(new View.OnClickListener() {
@@ -105,7 +110,14 @@ public class MainActivity extends AppCompatActivity {
     BPokemon.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(getApplicationContext(), PublicacionMainActivity.class);
+            Intent intent = new Intent(getApplicationContext(), PaisajeMainActivity.class);
+            startActivity(intent);
+        }
+    });
+    BMapas.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
             startActivity(intent);
         }
     });

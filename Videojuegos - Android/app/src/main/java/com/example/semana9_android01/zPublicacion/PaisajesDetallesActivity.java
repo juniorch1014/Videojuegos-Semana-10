@@ -1,6 +1,7 @@
-package com.example.semana9_android01.zPokemon;
+package com.example.semana9_android01.zPublicacion;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -14,9 +15,11 @@ import android.widget.TextView;
 import com.example.semana9_android01.R;
 import com.example.semana9_android01.adapters.ComentarioAdapter;
 import com.example.semana9_android01.entities.Comentario;
-import com.example.semana9_android01.entities.Publicacion;
+import com.example.semana9_android01.entities.LocationData;
+import com.example.semana9_android01.entities.Paisajes;
+import com.example.semana9_android01.mapasController.MapsMostrarActivity;
 import com.example.semana9_android01.services.ComentarioService;
-import com.example.semana9_android01.services.PublicacionService;
+import com.example.semana9_android01.services.PaisajeService;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
@@ -28,14 +31,19 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class PublicacionDetallesActivity extends AppCompatActivity {
+public class PaisajesDetallesActivity extends AppCompatActivity {
 
     ImageView imagenP;
-    TextView nroPublicDescrip;
+    TextView tvPaisajeDescrip;
     TextView tvNombre;
     TextView tvTipo;
+    TextView tvLatitudDet;
+    TextView tvLongitudDet;
     RecyclerView rvComentarios;
     Button btEliminarP;
+    Button btAddComent;
+    Button btMapaDet;
+
 
 
 
@@ -46,9 +54,15 @@ public class PublicacionDetallesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_publicacion_detalles);
 
         imagenP  = findViewById(R.id.imagenP);
-        nroPublicDescrip = findViewById(R.id.nroPublicDescrip);
+        tvPaisajeDescrip = findViewById(R.id.tvPaisajeDescrip);
+        tvLatitudDet     = findViewById(R.id.tvLatitudDetalle);
+        tvLongitudDet    = findViewById(R.id.tvLongitudDetalle);
+
         btEliminarP = findViewById(R.id.btEliminar);
+        btAddComent = findViewById(R.id.btAddComentario);
+        btMapaDet   = findViewById(R.id.btMapaDet);
         rvComentarios = findViewById(R.id.rvComentarios);
+        rvComentarios.setLayoutManager(new LinearLayoutManager(this));
 
 
 
@@ -61,24 +75,27 @@ public class PublicacionDetallesActivity extends AppCompatActivity {
                 .baseUrl("https://64787960362560649a2dda13.mockapi.io/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        PublicacionService service = retrofit.create(PublicacionService.class);
+        PaisajeService service = retrofit.create(PaisajeService.class);
 
-        Call<Publicacion> call = service.findUser(idObtener);
-        call.enqueue(new Callback<Publicacion>() {
+        Call<Paisajes> call = service.findUser(idObtener);
+        call.enqueue(new Callback<Paisajes>() {
             @Override
-            public void onResponse(Call<Publicacion> call, Response<Publicacion> response) {
+            public void onResponse(Call<Paisajes> call, Response<Paisajes> response) {
                 if (response.isSuccessful()) {
-                    Publicacion data = response.body();
+                    Paisajes data = response.body();
 
                     Picasso.get().load(data.urlimagen).into(imagenP);
-                    nroPublicDescrip.setText(data.descripcion);
+                    tvPaisajeDescrip.setText(data.nombrePasaje);
+                    tvLatitudDet.setText(data.latitud);
+                    tvLongitudDet.setText(data.longitud);
+
                     Log.i("MAIN_APP", new Gson().toJson(data));
 
                 }
             }
 
             @Override
-            public void onFailure(Call<Publicacion> call, Throwable t) {
+            public void onFailure(Call<Paisajes> call, Throwable t) {
 
             }
         });
@@ -90,8 +107,8 @@ public class PublicacionDetallesActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     List<Comentario> dataC = response.body();
 
-                    Log.i("MAIN_APP",String.valueOf(dataC.size()));
-                    Log.i("MAIN_APP", new Gson().toJson(dataC));
+                    Log.i("MAIN_APP1",String.valueOf(dataC.size()));
+                    Log.i("MAIN_APP1", new Gson().toJson(dataC));
 
                     ComentarioAdapter adapter = new ComentarioAdapter(dataC);
                     rvComentarios.setAdapter(adapter);
@@ -122,6 +139,35 @@ public class PublicacionDetallesActivity extends AppCompatActivity {
 
                     }
                 });
+            }
+        });
+//**************************************************************************************
+        btAddComent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               Intent intent = new Intent(getApplicationContext(), ComentarioAgregarActivity.class);
+                intent.putExtra("id1", idObtener);
+                Log.i("APP_MAIN8", String.valueOf(idObtener));
+               startActivity(intent);
+
+
+            }
+        });
+//*************************************************************************************
+        btMapaDet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String nomPaisaje = tvPaisajeDescrip.getText().toString();
+                Double latitude = Double.valueOf(tvLatitudDet.getText().toString());
+                Double longitude = Double.valueOf(tvLongitudDet.getText().toString());
+
+                Log.i("MAIN_APPDet: Location - ",  "Latitude: " + latitude);
+                Log.i("MAIN_APPDet: Location - ",  "Longitude: " + longitude);
+
+                LocationData.getInstance().setCoordinates(latitude,longitude);
+                Intent intent = new Intent(getApplicationContext(), MapsMostrarActivity.class);
+                intent.putExtra("paisaje",nomPaisaje);
+                startActivity(intent);
             }
         });
     }

@@ -104,8 +104,18 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:layout_marginTop="76dp"
-        android:text="PUBLICACION"
+        android:text="PAISAJES"
         app:layout_constraintStart_toEndOf="@+id/btAnime"
         app:layout_constraintTop_toBottomOf="@+id/BReset" />
+
+    <Button
+        android:id="@+id/btMapas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="148dp"
+        android:layout_marginTop="28dp"
+        android:text="Mapas"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btAnime" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
